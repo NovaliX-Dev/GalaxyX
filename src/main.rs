@@ -43,5 +43,5 @@ fn main() -> anyhow::Result<()> {
     let objects = vec![bh1, bh2, s1];
 
     // launch the app
-    app::run(objects, 3600.0)
+    app::run(objects, 720000.0)
 }
