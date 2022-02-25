@@ -53,6 +53,8 @@ pub fn run(
     // Window loop
     // -------------------------------------------------------------------------
 
+    let mut time_passed = 0.0;
+
     'win_loop: loop {
         // handle events if any
         for event in event_pump.poll_iter() {
@@ -64,12 +66,15 @@ pub fn run(
             }
         }
 
+        // get a first time value
+        let time_now = Instant::now();
+
         // ---------------------------------------------------------------------
         // Physics computation
         // ---------------------------------------------------------------------
 
         physics::compute_object_global_force_for_each(&mut objects);
-        physics::compute_object_next_position_for_each(&mut objects, delta_t);
+        physics::compute_object_next_position_for_each(&mut objects, delta_t * time_passed);
 
         // ---------------------------------------------------------------------
         // Rendering
@@ -87,6 +92,9 @@ pub fn run(
         }
 
         canvas.present();
+
+        // compute the time passed during the physics computation and display
+        time_passed = time_now.elapsed().as_secs_f64();
     }
 
     Ok(())
