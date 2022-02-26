@@ -15,33 +15,15 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 // =============================================================================
-// Enum
+// Enums
 // =============================================================================
 
-pub enum RadiusType {
-    Constant(u32),
-    FromMass(MassGraphics)
+pub enum VelocityLengthType {
+    Constant(f64),
+    FromValueFactor(f64)
 }
 
-// =============================================================================
-// Types
-// =============================================================================
-
-/// allow to compute the radius of an object from it's mass
-pub struct MassGraphics {
-    min_size: u32,
-    mass_factor: f64
-}
-
-impl MassGraphics {
-    pub fn new(min_size: u32, mass_factor: f64) -> Self { 
-        Self { min_size, mass_factor } 
-    }
-
-    /// compute the radius of an object from it's mass
-    pub fn radius_u32_from_mass(&self, mass: f64) -> u32 {
-        let a = mass * self.mass_factor;
-
-        a as u32 + self.min_size
-    }
+pub enum ForceLengthType {
+    Constant(f64),
+    FromValueFactor(f64)
 }

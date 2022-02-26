@@ -15,9 +15,21 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 use std::fmt::Debug;
-use std::ops::{Div, Mul, AddAssign, Sub};
+use std::ops::{Div, Mul, AddAssign, Sub, Add};
 
 use num_traits::{Float, Num};
+
+// =============================================================================
+// Traits
+// =============================================================================
+
+pub trait VecInto<T> {
+    fn into_vec(self) -> Vec2<T> where T: Num;
+}
+
+pub trait VecLength<T> {
+    fn length_f64(&self) -> f64 where T: Into<f64>;
+}
 
 // =============================================================================
 // Type
@@ -39,6 +51,20 @@ impl<T> Vec2<T> where T: Num {
     /// Construct a new null Vec2F object
     pub fn new_null() -> Self {
         Self { x: T::zero(), y: T::zero() }
+    }
+
+    /// Function to convert from one value type to another manually
+    pub fn convert<F>(self, convert_function: fn(T) -> F) -> Vec2<F> where F: Num {
+        Vec2 {
+            x: convert_function(self.x),
+            y: convert_function(self.y)
+        }
+    }
+}
+
+impl<T> VecLength<T> for Vec2<T> where T: Into<f64> + Num + Copy {
+    fn length_f64(&self) -> f64 where T: Into<f64> {
+        (self.x.into().powi(2) + self.y.into().powi(2)).sqrt()
     }
 }
 
@@ -85,6 +111,17 @@ impl<T> Mul<T> for Vec2<T> where T: Num + Copy {
     }
 }
 
+impl<T> Add for Vec2<T> where T: Num + Copy {
+    type Output = Self;
+
+    fn add(self, rhs: Vec2<T>) -> Self::Output {
+        Self {
+            x: self.x + rhs.x,
+            y: self.y + rhs.y
+        }
+    }
+}
+
 impl<T> AddAssign for Vec2<T> where T: Num + AddAssign {
     fn add_assign(&mut self, rhs: Self) {
         self.x += rhs.x;
@@ -101,6 +138,15 @@ impl<T> PartialEq for Vec2<T> where T: Num {
 impl<T> Debug for Vec2<T> where T: Num + Debug {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.debug_struct("Vec2F").field("x", &self.x).field("y", &self.y).finish()
+    }
+}
+
+impl<F, T> VecInto<T> for Vec2<F> where T: Num + From<F>, F: Num{
+    fn into_vec(self) -> Vec2<T> where T: Num {
+        Vec2 { 
+            x: self.x.into(), 
+            y: self.y.into()
+        }
     }
 }
 
