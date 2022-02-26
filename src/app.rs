@@ -21,13 +21,14 @@ use anyhow::Context;
 use sdl2::event::Event;
 use sdl2::pixels::Color;
 
-use crate::renderer::graphics;
+use crate::renderer::graphics::{self, Graphics};
 use crate::{simulation::{object::Object, physics}, renderer};
 
 /// Create all the threads for the simulation and launch the window
 pub fn run(
     mut objects: Vec<Object>,
-    delta_t: f64
+    delta_t: f64,
+    graphics: Graphics
 ) -> anyhow::Result<()> {
     // -------------------------------------------------------------------------
     // Window creation
@@ -84,11 +85,7 @@ pub fn run(
         canvas.clear();
 
         for o in objects.iter() {
-            let p = o.location;
-            let x = p.x as i32;
-            let y = p.y as i32;
-
-            graphics::draw_point(&mut canvas, (x, y), 3, o.color);
+            graphics::draw_object(&mut canvas, o, &graphics)
         }
 
         canvas.present();

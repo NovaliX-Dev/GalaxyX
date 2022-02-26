@@ -20,7 +20,7 @@ use sdl2::render::Canvas;
 use sdl2::video::Window;
 
 /// Draw a point in the canvas
-pub fn draw_point(canvas: &mut Canvas<Window>, origin: (i32, i32), radius: u32, color: Color) {
+pub fn draw_point_u32(canvas: &mut Canvas<Window>, origin: (i32, i32), radius: u32, color: Color) {
     let rect = Rect::new(
         origin.0 - radius as i32,
         origin.1 - radius as i32, 
@@ -30,4 +30,9 @@ pub fn draw_point(canvas: &mut Canvas<Window>, origin: (i32, i32), radius: u32, 
 
     canvas.set_draw_color(color);
     canvas.fill_rect(rect).unwrap();
+}
+
+/// Draw a point in the canvas
+pub fn draw_vector_u32() {
+
 }

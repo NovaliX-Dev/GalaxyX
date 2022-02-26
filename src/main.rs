@@ -17,6 +17,8 @@
 use anyhow::Context;
 
 use common::vec2f::Vec2F;
+use renderer::graphics::Graphics;
+use renderer::graphics::object_radius::{MassGraphics, RadiusType};
 use sdl2::pixels::Color;
 use simulation::object;
 
@@ -34,7 +36,7 @@ fn main() -> anyhow::Result<()> {
     // -------------------------------------------------------------------------
 
     let bh1 = create_object_value_checked!(1000.0, Vec2F::new(300.0, 300.0), false, Color::RED);
-    let bh2 = create_object_value_checked!(1000.0, Vec2F::new(500.0, 300.0), false, Color::RED);
+    let bh2 = create_object_value_checked!(500.0, Vec2F::new(500.0, 300.0), false, Color::RED);
 
     let mut s1 = create_object_value_checked!(50.0, Vec2F::new(400.0, 200.0), true, Color::CYAN);
 
@@ -42,6 +44,15 @@ fn main() -> anyhow::Result<()> {
 
     let objects = vec![bh1, bh2, s1];
 
+    // -------------------------------------------------------------------------
+    // Graphics configuration
+    // -------------------------------------------------------------------------
+
+    let mass_graphics = MassGraphics::new(2, 0.01);
+    let radius_type = RadiusType::FromMass(mass_graphics);
+    
+    let graphics = Graphics::new(radius_type);
+
     // launch the app
-    app::run(objects, 720000.0)
+    app::run(objects, 720000.0, graphics)
 }
