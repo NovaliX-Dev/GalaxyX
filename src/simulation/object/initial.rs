@@ -25,7 +25,7 @@ pub enum VelocityDirection {
 
 use std::f64::consts::FRAC_PI_2;
 
-use crate::common::{constants::G, maths, vec2f::Vec2F};
+use crate::common::{constants::G, maths, vec2::Vec2F};
 
 use super::Object;
 

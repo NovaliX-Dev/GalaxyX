@@ -17,7 +17,7 @@
 use crate::common::constants::G;
 use super::object::Object;
 use crate::common::maths::{self, compute_angle};
-use crate::common::vec2f::Vec2F;
+use crate::common::vec2::Vec2F;
 
 fn compute_force_value(o1: &Object, o2: &Object) -> f64 {
     let d = maths::compute_distance(o1.location, o2.location);

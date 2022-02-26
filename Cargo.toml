@@ -8,6 +8,7 @@ edition = "2021"
 [dependencies]
 anyhow = "1.0.53"
 paste = "1.0.6"
+num-traits = "0.2.14"
 
 [dependencies.sdl2]
 version = "0.35.2"

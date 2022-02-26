@@ -19,6 +19,8 @@ use sdl2::rect::Rect;
 use sdl2::render::Canvas;
 use sdl2::video::Window;
 
+use crate::common::vec2::Vec2;
+
 /// Draw a point in the canvas
 pub fn draw_point_u32(canvas: &mut Canvas<Window>, origin: (i32, i32), radius: u32, color: Color) {
     let rect = Rect::new(
@@ -33,6 +35,6 @@ pub fn draw_point_u32(canvas: &mut Canvas<Window>, origin: (i32, i32), radius: u
 }
 
 /// Draw a point in the canvas
-pub fn draw_vector_u32() {
+pub fn draw_vector_u32(vec: Vec2<u32>) {
 
 }

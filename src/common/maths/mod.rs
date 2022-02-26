@@ -17,7 +17,7 @@
 #[cfg(test)]
 mod test;
 
-use super::vec2f::Vec2F;
+use super::vec2::Vec2F;
 
 /// Compute the distance between p1 and p2
 pub fn compute_distance(p1: Vec2F, p2: Vec2F) -> f64 {

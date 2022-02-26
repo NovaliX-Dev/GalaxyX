@@ -17,7 +17,7 @@
 use std::f64::consts::{PI, FRAC_PI_2};
 
 use super::{compute_angle, compute_distance};
-use crate::common::vec2f::Vec2F;
+use crate::common::vec2::Vec2F;
 
 #[test]
 fn test_compute_angle() {

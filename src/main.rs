@@ -16,7 +16,7 @@
 
 use anyhow::Context;
 
-use common::vec2f::Vec2F;
+use common::vec2::Vec2F;
 use renderer::graphics::Graphics;
 use renderer::graphics::object_radius::{MassGraphics, RadiusType};
 use sdl2::pixels::Color;
@@ -36,7 +36,7 @@ fn main() -> anyhow::Result<()> {
     // -------------------------------------------------------------------------
 
     let bh1 = create_object_value_checked!(1000.0, Vec2F::new(300.0, 300.0), false, Color::RED);
-    let bh2 = create_object_value_checked!(500.0, Vec2F::new(500.0, 300.0), false, Color::RED);
+    let bh2 = create_object_value_checked!(1000.0, Vec2F::new(500.0, 300.0), false, Color::RED);
 
     let mut s1 = create_object_value_checked!(50.0, Vec2F::new(400.0, 200.0), true, Color::CYAN);
 

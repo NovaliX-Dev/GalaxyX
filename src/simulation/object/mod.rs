@@ -22,7 +22,7 @@ use std::fmt::{Debug, Display};
 
 use sdl2::pixels::Color;
 
-use crate::common::vec2f::Vec2F;
+use crate::common::vec2::Vec2F;
 
 // =============================================================================
 // Error
