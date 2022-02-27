@@ -19,7 +19,12 @@ ___
 - [x] Physics computation
 - [x] Window and object drawing
 - [ ] Anti-aliasing
-- [ ] Viewport controls (zoom, move, object focus)
+  - [x] Object rendering
+  - [ ] Vector rendering
+- [ ] Viewport controls
+  - [ ] zoom
+  - [ ] move
+  - [ ] object focus
 - [ ] Informations rendering (fps, cps _(computation per second)_)
 - [ ] Engine multi-threading
 - [ ] Settings file loading
