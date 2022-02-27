@@ -49,7 +49,7 @@ fn main() -> anyhow::Result<()> {
     // Graphics configuration
     // -------------------------------------------------------------------------
 
-    let mass_graphics = MassGraphics::new(2, 0.01);
+    let mass_graphics = MassGraphics::new(5.5, 0.0222);
     let radius_type = RadiusType::FromMass(mass_graphics);
     
     let graphics = Graphics::new(

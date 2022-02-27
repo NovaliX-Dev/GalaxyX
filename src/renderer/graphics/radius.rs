@@ -19,7 +19,7 @@
 // =============================================================================
 
 pub enum RadiusType {
-    Constant(u32),
+    Constant(f64),
     FromMass(MassGraphics)
 }
 
@@ -29,19 +29,19 @@ pub enum RadiusType {
 
 /// allow to compute the radius of an object from it's mass
 pub struct MassGraphics {
-    min_size: u32,
+    min_size: f64,
     mass_factor: f64
 }
 
 impl MassGraphics {
-    pub fn new(min_size: u32, mass_factor: f64) -> Self { 
+    pub fn new(min_size: f64, mass_factor: f64) -> Self { 
         Self { min_size, mass_factor } 
     }
  
     /// compute the radius of an object from it's mass
-    pub fn radius_u32_from_mass(&self, mass: f64) -> u32 {
+    pub fn radius_f64_from_mass(&self, mass: f64) -> f64 {
         let a = mass * self.mass_factor;
 
-        a as u32 + self.min_size
+        a + self.min_size
     }
 }

@@ -101,11 +101,11 @@ pub fn draw_object(canvas: &mut Canvas<Window>, object: &Object, settings: &Grap
     // compute the radius
     let r = match &settings.radius_type {
         RadiusType::Constant(v) => *v,
-        RadiusType::FromMass(v) => v.radius_u32_from_mass(object.mass),
+        RadiusType::FromMass(v) => v.radius_f64_from_mass(object.mass),
     };
 
     // draw the object
-    draw::draw_point_u32(canvas, p, r, object.color);
+    draw::draw_point_f64_radius_f64(canvas, object.location, r, object.color);
 
     // draw it's force if requested
     draw_vector_option!(canvas, settings, force, 10.0e8, ForceLengthType, object, force, p, Color::WHITE);

@@ -60,6 +60,11 @@ impl<T> Vec2<T> where T: Num {
             y: convert_function(self.y)
         }
     }
+
+    /// Return a tuple containing both values
+    pub fn as_tuple(self) -> (T, T) {
+        (self.x, self.y)
+    }
 }
 
 impl<T> VecLength<T> for Vec2<T> where T: Into<f64> + Num + Copy {
