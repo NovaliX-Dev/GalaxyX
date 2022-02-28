@@ -74,7 +74,7 @@ pub fn run(
                     // -------------------------------------------------------------
                     // Viewport controls
                     // -------------------------------------------------------------
-                    Event::MouseWheel { y, .. } => viewport.zoom(y, canvas.window().size()),
+                    Event::MouseWheel { y, .. } => viewport.zoom(y),
 
                     Event::MouseMotion {
                          xrel,

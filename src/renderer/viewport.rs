@@ -43,7 +43,7 @@ impl Viewport {
           Self::new(1.0, Vec2F::new_null(), window_size)
      }
 
-     pub fn zoom(&mut self, y: i32, window_size: (u32, u32)) {
+     pub fn zoom(&mut self, y: i32) {
           // compute new scale
           let delta_scale = y as f64 * 0.01 * self.initial_scale;
           self.scale += delta_scale;
