@@ -63,16 +63,16 @@ impl Graphics {
 
 macro_rules! draw_vector_option {
      (
-        $canvas: ident,
-        $settings: ident,
-        $attribute: ident,
-        $factor: expr,
-        $enum: ident,
-        $object: ident,
-        $object_attribute: ident,
-        $object_origin: ident,
-        $color: expr,
-        $viewport: ident
+          $canvas: ident,
+          $settings: ident,
+          $attribute: ident,
+          $factor: expr,
+          $enum: ident,
+          $object: ident,
+          $object_attribute: ident,
+          $object_origin: ident,
+          $color: expr,
+          $viewport: ident
     ) => {
           if let Some(v) = &$settings.$attribute {
                if $object.$object_attribute.length_f64() != 0.0 {
