@@ -15,11 +15,11 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 macro_rules! create_object_value_checked {
-    ($mass: expr, $loc: expr, $can_move: expr, $color: expr) => {
-        Object::new_inactive($mass, $loc, $can_move, $color)
-            .map_err(|e| anyhow::anyhow!(e))
-            .with_context(|| "Couldn't create object.")?
-    };
+     ($mass: expr, $loc: expr, $can_move: expr, $color: expr) => {
+          Object::new_inactive($mass, $loc, $can_move, $color)
+               .map_err(|e| anyhow::anyhow!(e))
+               .with_context(|| "Couldn't create object.")?
+     };
 }
 
 pub(crate) use create_object_value_checked;

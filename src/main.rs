@@ -33,34 +33,34 @@ mod renderer;
 mod simulation;
 
 fn main() -> anyhow::Result<()> {
-    // -------------------------------------------------------------------------
-    // Objects creation and configuration
-    // -------------------------------------------------------------------------
+     // -------------------------------------------------------------------------
+     // Objects creation and configuration
+     // -------------------------------------------------------------------------
 
-    let bh1 = create_object_value_checked!(1000.0, Vec2F::new(300.0, 300.0), false, Color::RED);
-    let bh2 = create_object_value_checked!(1000.0, Vec2F::new(500.0, 300.0), false, Color::RED);
+     let bh1 = create_object_value_checked!(1000.0, Vec2F::new(300.0, 300.0), false, Color::RED);
+     let bh2 = create_object_value_checked!(1000.0, Vec2F::new(500.0, 300.0), false, Color::RED);
 
-    let mut s1 = create_object_value_checked!(50.0, Vec2F::new(400.0, 200.0), true, Color::CYAN);
+     let mut s1 = create_object_value_checked!(50.0, Vec2F::new(400.0, 200.0), true, Color::CYAN);
 
-    object::add_orbital_velocity(&mut s1, &vec![bh1, bh2], object::VelocityDirection::Left);
+     object::add_orbital_velocity(&mut s1, &vec![bh1, bh2], object::VelocityDirection::Left);
 
-    let objects = vec![bh1, bh2, s1];
+     let objects = vec![bh1, bh2, s1];
 
-    // -------------------------------------------------------------------------
-    // Graphics configuration
-    // -------------------------------------------------------------------------
+     // -------------------------------------------------------------------------
+     // Graphics configuration
+     // -------------------------------------------------------------------------
 
-    let mass_graphics = MassGraphics::new(5.5, 0.0222);
-    let radius_type = RadiusType::FromMass(mass_graphics);
+     let mass_graphics = MassGraphics::new(5.5, 0.0222);
+     let radius_type = RadiusType::FromMass(mass_graphics);
 
-    let graphics = Graphics::new(
-        radius_type,
-        Some(VelocityLengthType::Constant(20.0)),
-        Some(ForceLengthType::Constant(10.0)),
-    );
+     let graphics = Graphics::new(
+          radius_type,
+          Some(VelocityLengthType::Constant(20.0)),
+          Some(ForceLengthType::Constant(10.0)),
+     );
 
-    let viewport = Viewport::default();
+     let viewport = Viewport::default();
 
-    // launch the app
-    app::run(objects, 720000.0, graphics, viewport)
+     // launch the app
+     app::run(objects, 720000.0, graphics, viewport)
 }

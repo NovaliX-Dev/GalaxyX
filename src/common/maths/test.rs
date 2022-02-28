@@ -21,36 +21,36 @@ use crate::common::vec2::Vec2F;
 
 #[test]
 fn test_compute_angle() {
-    assert_eq!(
-        compute_angle(Vec2F::new(0.0, 0.0), Vec2F::new(1.0, 0.0)),
-        0.0
-    );
-    assert_eq!(
-        compute_angle(Vec2F::new(0.0, 0.0), Vec2F::new(0.0, 1.0)),
-        FRAC_PI_2
-    );
-    assert_eq!(
-        compute_angle(Vec2F::new(0.0, 0.0), Vec2F::new(-1.0, 0.0)),
-        PI
-    );
-    assert_eq!(
-        compute_angle(Vec2F::new(0.0, 0.0), Vec2F::new(0.0, -1.0)),
-        -FRAC_PI_2
-    );
+     assert_eq!(
+          compute_angle(Vec2F::new(0.0, 0.0), Vec2F::new(1.0, 0.0)),
+          0.0
+     );
+     assert_eq!(
+          compute_angle(Vec2F::new(0.0, 0.0), Vec2F::new(0.0, 1.0)),
+          FRAC_PI_2
+     );
+     assert_eq!(
+          compute_angle(Vec2F::new(0.0, 0.0), Vec2F::new(-1.0, 0.0)),
+          PI
+     );
+     assert_eq!(
+          compute_angle(Vec2F::new(0.0, 0.0), Vec2F::new(0.0, -1.0)),
+          -FRAC_PI_2
+     );
 }
 
 #[test]
 fn test_compute_distance() {
-    assert_eq!(
-        compute_distance(Vec2F::new(0.0, 0.0), Vec2F::new(1.0, 0.0)),
-        1.0
-    );
-    assert_eq!(
-        compute_distance(Vec2F::new(0.0, 0.0), Vec2F::new(0.0, 1.0)),
-        1.0
-    );
-    assert_eq!(
-        compute_distance(Vec2F::new(0.0, 0.0), Vec2F::new(1.0, 1.0)),
-        2.0_f64.sqrt()
-    );
+     assert_eq!(
+          compute_distance(Vec2F::new(0.0, 0.0), Vec2F::new(1.0, 0.0)),
+          1.0
+     );
+     assert_eq!(
+          compute_distance(Vec2F::new(0.0, 0.0), Vec2F::new(0.0, 1.0)),
+          1.0
+     );
+     assert_eq!(
+          compute_distance(Vec2F::new(0.0, 0.0), Vec2F::new(1.0, 1.0)),
+          2.0_f64.sqrt()
+     );
 }

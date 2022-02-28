@@ -25,94 +25,94 @@ use crate::renderer::graphics::{self, Graphics};
 
 use crate::renderer::viewport::Viewport;
 use crate::{
-    renderer,
-    simulation::{object::Object, physics},
+     renderer,
+     simulation::{object::Object, physics},
 };
 
 /// Create all the threads for the simulation and launch the window
 pub fn run(
-    mut objects: Vec<Object>,
-    delta_t: f64,
-    graphics: Graphics,
-    mut viewport: Viewport,
+     mut objects: Vec<Object>,
+     delta_t: f64,
+     graphics: Graphics,
+     mut viewport: Viewport,
 ) -> anyhow::Result<()> {
-    // -------------------------------------------------------------------------
-    // Window creation
-    // -------------------------------------------------------------------------
+     // -------------------------------------------------------------------------
+     // Window creation
+     // -------------------------------------------------------------------------
 
-    // init sdl modules
-    let (video, mut event_pump, mouse) = renderer::init_sdl_modules()
-        .map_err(|e| anyhow::anyhow!(e))
-        .with_context(|| "Couldn't initialize SDL modules.")?;
+     // init sdl modules
+     let (video, mut event_pump, mouse) = renderer::init_sdl_modules()
+          .map_err(|e| anyhow::anyhow!(e))
+          .with_context(|| "Couldn't initialize SDL modules.")?;
 
-    // create the window
-    let mut canvas = renderer::window::create(video, 800, 600, "GalaxyX", true)
-        .map_err(|e| anyhow::anyhow!(e))
-        .with_context(|| "Couldn't create the window.")?;
+     // create the window
+     let mut canvas = renderer::window::create(video, 800, 600, "GalaxyX", true)
+          .map_err(|e| anyhow::anyhow!(e))
+          .with_context(|| "Couldn't create the window.")?;
 
-    // -------------------------------------------------------------------------
-    // Window loop
-    // -------------------------------------------------------------------------
+     // -------------------------------------------------------------------------
+     // Window loop
+     // -------------------------------------------------------------------------
 
-    let mut time_passed = 0.0;
+     let mut time_passed = 0.0;
 
-    'win_loop: loop {
-        // handle events if any
-        for event in event_pump.poll_iter() {
-            match event {
-                // window close, since there is only one
-                Event::Quit { .. } => break 'win_loop,
+     'win_loop: loop {
+          // handle events if any
+          for event in event_pump.poll_iter() {
+               match event {
+                    // window close, since there is only one
+                    Event::Quit { .. } => break 'win_loop,
 
-                // -------------------------------------------------------------
-                // Viewport controls
-                // -------------------------------------------------------------
-                Event::MouseWheel { y, .. } => viewport.zoom(y, canvas.window().size()),
+                    // -------------------------------------------------------------
+                    // Viewport controls
+                    // -------------------------------------------------------------
+                    Event::MouseWheel { y, .. } => viewport.zoom(y, canvas.window().size()),
 
-                Event::MouseMotion {
-                    xrel,
-                    yrel,
-                    mousestate,
-                    ..
-                } => {
-                    if mousestate.left() {
-                        mouse.set_relative_mouse_mode(true);
+                    Event::MouseMotion {
+                         xrel,
+                         yrel,
+                         mousestate,
+                         ..
+                    } => {
+                         if mousestate.left() {
+                              mouse.set_relative_mouse_mode(true);
 
-                        viewport.move_(xrel, yrel);
-                    } else {
-                        mouse.set_relative_mouse_mode(false);
-                    }
-                }
+                              viewport.move_(xrel, yrel);
+                         } else {
+                              mouse.set_relative_mouse_mode(false);
+                         }
+                    },
 
-                _ => (),
-            }
-        }
+                    _ => (),
+               }
+          }
 
-        // get a first time value
-        let time_now = Instant::now();
+          // get a first time value
+          let time_now = Instant::now();
 
-        // ---------------------------------------------------------------------
-        // Physics computation
-        // ---------------------------------------------------------------------
+          // ---------------------------------------------------------------------
+          // Physics computation
+          // ---------------------------------------------------------------------
 
-        physics::compute_object_global_force_for_each(&mut objects);
-        physics::compute_object_next_position_for_each(&mut objects, delta_t * time_passed);
+          physics::compute_object_global_force_for_each(&mut objects);
+          physics::compute_object_next_position_for_each(&mut objects, delta_t * time_passed);
 
-        // ---------------------------------------------------------------------
-        // Rendering
-        // ---------------------------------------------------------------------
+          // ---------------------------------------------------------------------
+          // Rendering
+          // ---------------------------------------------------------------------
 
-        canvas.set_draw_color(Color::BLACK);
-        canvas.clear();
+          canvas.set_draw_color(Color::BLACK);
+          canvas.clear();
 
-        for o in objects.iter() {
-            graphics::draw_object(&mut canvas, o, &graphics, &viewport)
-        }
+          for o in objects.iter() {
+               graphics::draw_object(&mut canvas, o, &graphics, &viewport)
+          }
 
-        canvas.present();
+          canvas.present();
 
-        // compute the time passed during the physics computation and display
-        time_passed = time_now.elapsed().as_secs_f64();
-    }
+          // compute the time passed during the physics computation and display
+          time_passed = time_now.elapsed().as_secs_f64();
+     }
 
-    Ok(())
+     Ok(())
 }

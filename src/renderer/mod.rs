@@ -22,12 +22,12 @@ use sdl2::{mouse::MouseUtil, EventPump, VideoSubsystem};
 
 /// Initialize all needed SDL modules
 pub fn init_sdl_modules() -> Result<(VideoSubsystem, EventPump, MouseUtil), String> {
-    let sdl_context = sdl2::init()?;
+     let sdl_context = sdl2::init()?;
 
-    let video = sdl_context.video()?;
-    let event_pump = sdl_context.event_pump()?;
+     let video = sdl_context.video()?;
+     let event_pump = sdl_context.event_pump()?;
 
-    let mouse = sdl_context.mouse();
+     let mouse = sdl_context.mouse();
 
-    Ok((video, event_pump, mouse))
+     Ok((video, event_pump, mouse))
 }

@@ -15,8 +15,8 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 pub enum VelocityDirection {
-    Left,
-    Right,
+     Left,
+     Right,
 }
 
 // =============================================================================
@@ -31,24 +31,24 @@ use super::Object;
 
 /// Make the object o turn around many others objects (called origins)
 pub fn add_orbital_velocity(o: &mut Object, origins: &Vec<Object>, direction: VelocityDirection) {
-    for origin in origins {
-        let d = maths::compute_distance(o.location, origin.location);
+     for origin in origins {
+          let d = maths::compute_distance(o.location, origin.location);
 
-        if d == 0.0 {
-            continue;
-        }
+          if d == 0.0 {
+               continue;
+          }
 
-        let v = ((G * origin.mass) / d).sqrt();
+          let v = ((G * origin.mass) / d).sqrt();
 
-        let a = maths::compute_angle(o.location, origin.location);
-        let v_vec = Vec2F::from_angle_value(
-            match direction {
-                VelocityDirection::Left => a + FRAC_PI_2,
-                VelocityDirection::Right => a - FRAC_PI_2,
-            },
-            v,
-        );
+          let a = maths::compute_angle(o.location, origin.location);
+          let v_vec = Vec2F::from_angle_value(
+               match direction {
+                    VelocityDirection::Left => a + FRAC_PI_2,
+                    VelocityDirection::Right => a - FRAC_PI_2,
+               },
+               v,
+          );
 
-        o.velocity += v_vec;
-    }
+          o.velocity += v_vec;
+     }
 }

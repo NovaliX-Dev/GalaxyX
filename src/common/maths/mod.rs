@@ -21,13 +21,13 @@ use super::vec2::Vec2F;
 
 /// Compute the distance between p1 and p2
 pub fn compute_distance(p1: Vec2F, p2: Vec2F) -> f64 {
-    ((p1.x - p2.x).powi(2) + (p1.y - p2.y).powi(2)).sqrt()
+     ((p1.x - p2.x).powi(2) + (p1.y - p2.y).powi(2)).sqrt()
 }
 
 /// Compute the angle between origin and a
 pub fn compute_angle(origin: Vec2F, a: Vec2F) -> f64 {
-    let vec = a - origin;
-    let ref_vec = Vec2F::new(1.0, 0.0); // the vec for which the angle is 0
+     let vec = a - origin;
+     let ref_vec = Vec2F::new(1.0, 0.0); // the vec for which the angle is 0
 
-    vec.y.atan2(vec.x) - ref_vec.y.atan2(ref_vec.x)
+     vec.y.atan2(vec.x) - ref_vec.y.atan2(ref_vec.x)
 }
