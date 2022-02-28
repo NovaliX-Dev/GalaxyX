@@ -45,25 +45,25 @@ pub fn draw_point_u32_radius_f64(
     radius: f64,
     color: Color,
 ) {
-    let r_max = radius.ceil();
-    let r_min = radius.floor();
+    let r_min = radius.ceil();
+    let r_max = radius.floor();
 
     // if the radius is an integer we can draw it only once
-    if radius == r_max {
-        draw_point_u32(canvas, origin, radius as u32, color);
+    if radius == r_min {
+        draw_point_u32(canvas, origin, radius.round() as u32, color);
 
         return;
     }
 
     // compute color from ceil and floor
-    let r_max_alpha = color.a as f64 * (r_max - radius);
-    let r_min_alpha = color.a as f64 * (radius - r_min);
+    let r_min_alpha = color.a as f64 * (radius - r_max);
+    let r_max_alpha = color.a as f64 * (r_min - radius);
 
-    let r_max_color = Color::RGBA(color.r, color.g, color.b, r_max_alpha as u8);
-    let r_min_color = Color::RGBA(color.r, color.g, color.b, r_min_alpha as u8);
+    let r_min_color = Color::RGBA(color.r, color.g, color.b, r_min_alpha.round() as u8);
+    let r_max_color = Color::RGBA(color.r, color.g, color.b, r_max_alpha.round() as u8);
 
-    draw_point_u32(canvas, origin, r_max as u32, r_max_color);
     draw_point_u32(canvas, origin, r_min as u32, r_min_color);
+    draw_point_u32(canvas, origin, r_max as u32, r_max_color);
 }
 
 /// Draw a point in the canvas with radius and location anti-aliasing
@@ -78,7 +78,10 @@ pub fn draw_point_f64_radius_f64(
     let (min_x_i32, min_y_i32) = origin.convert(|v| v.floor()).as_tuple();
 
     // if the origin is on a pixel directly we have to draw it only one time
-    if (max_x_i32, max_y_i32) == origin.as_tuple() {
+    if max_x_i32 == origin.x
+        || min_x_i32 == origin.x && max_y_i32 == origin.y
+        || min_y_i32 == origin.y
+    {
         draw_point_u32_radius_f64(canvas, origin.convert(|v| v as i32), radius, color);
 
         return;
