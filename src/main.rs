@@ -17,9 +17,9 @@
 use anyhow::Context;
 
 use common::vec2::Vec2F;
-use renderer::graphics::Graphics;
 use renderer::graphics::radius::{MassGraphics, RadiusType};
-use renderer::graphics::vectors::{VelocityLengthType, ForceLengthType};
+use renderer::graphics::vectors::{ForceLengthType, VelocityLengthType};
+use renderer::graphics::Graphics;
 use sdl2::pixels::Color;
 use simulation::object;
 
@@ -51,11 +51,11 @@ fn main() -> anyhow::Result<()> {
 
     let mass_graphics = MassGraphics::new(5.5, 0.0222);
     let radius_type = RadiusType::FromMass(mass_graphics);
-    
+
     let graphics = Graphics::new(
-        radius_type, 
-        Some(VelocityLengthType::Constant(20.0)), 
-        Some(ForceLengthType::Constant(10.0))
+        radius_type,
+        Some(VelocityLengthType::Constant(20.0)),
+        Some(ForceLengthType::Constant(10.0)),
     );
 
     // launch the app

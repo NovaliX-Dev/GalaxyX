@@ -22,14 +22,14 @@ use sdl2::event::Event;
 use sdl2::pixels::Color;
 
 use crate::renderer::graphics::{self, Graphics};
-use crate::{simulation::{object::Object, physics}, renderer};
+
+use crate::{
+    renderer,
+    simulation::{object::Object, physics},
+};
 
 /// Create all the threads for the simulation and launch the window
-pub fn run(
-    mut objects: Vec<Object>,
-    delta_t: f64,
-    graphics: Graphics
-) -> anyhow::Result<()> {
+pub fn run(mut objects: Vec<Object>, delta_t: f64, graphics: Graphics) -> anyhow::Result<()> {
     // -------------------------------------------------------------------------
     // Window creation
     // -------------------------------------------------------------------------
@@ -40,13 +40,7 @@ pub fn run(
         .with_context(|| "Couldn't initialize SDL modules.")?;
 
     // create the window
-    let mut canvas = renderer::window::create(
-        video, 
-        800, 
-        600, 
-        "GalaxyX", 
-        true
-    )
+    let mut canvas = renderer::window::create(video, 800, 600, "GalaxyX", true)
         .map_err(|e| anyhow::anyhow!(e))
         .with_context(|| "Couldn't create the window.")?;
 
@@ -61,9 +55,9 @@ pub fn run(
         for event in event_pump.poll_iter() {
             match event {
                 // window close, since there is only one
-                Event::Quit {..} => break 'win_loop,
+                Event::Quit { .. } => break 'win_loop,
 
-                _ => ()
+                _ => (),
             }
         }
 

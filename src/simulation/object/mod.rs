@@ -14,8 +14,8 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-pub(crate) mod macros;
 mod initial;
+pub(crate) mod macros;
 pub use initial::*;
 
 use std::fmt::{Debug, Display};
@@ -108,4 +108,3 @@ impl Object {
         )
     }
 }
-

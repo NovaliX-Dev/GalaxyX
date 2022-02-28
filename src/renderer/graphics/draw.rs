@@ -16,7 +16,7 @@
 
 use sdl2::pixels::Color;
 use sdl2::rect::{Point, Rect};
-use sdl2::render::{Canvas, BlendMode};
+use sdl2::render::{BlendMode, Canvas};
 use sdl2::video::Window;
 
 use crate::common::vec2::Vec2;
@@ -39,7 +39,12 @@ pub fn draw_point_u32(canvas: &mut Canvas<Window>, origin: Vec2<i32>, radius: u3
 }
 
 /// Draw a point in the canvas with radius anti-aliasing
-pub fn draw_point_u32_radius_f64(canvas: &mut Canvas<Window>, origin: Vec2<i32>, radius: f64, color: Color) {
+pub fn draw_point_u32_radius_f64(
+    canvas: &mut Canvas<Window>,
+    origin: Vec2<i32>,
+    radius: f64,
+    color: Color,
+) {
     let r_max = radius.ceil();
     let r_min = radius.floor();
 
@@ -47,7 +52,7 @@ pub fn draw_point_u32_radius_f64(canvas: &mut Canvas<Window>, origin: Vec2<i32>,
     if radius == r_max {
         draw_point_u32(canvas, origin, radius as u32, color);
 
-        return 
+        return;
     }
 
     // compute color from ceil and floor
@@ -62,7 +67,12 @@ pub fn draw_point_u32_radius_f64(canvas: &mut Canvas<Window>, origin: Vec2<i32>,
 }
 
 /// Draw a point in the canvas with radius and location anti-aliasing
-pub fn draw_point_f64_radius_f64(canvas: &mut Canvas<Window>, origin: Vec2<f64>, radius: f64, color: Color) {
+pub fn draw_point_f64_radius_f64(
+    canvas: &mut Canvas<Window>,
+    origin: Vec2<f64>,
+    radius: f64,
+    color: Color,
+) {
     // get ceil and floor x and y
     let (max_x_i32, max_y_i32) = origin.convert(|v| v.ceil()).as_tuple();
     let (min_x_i32, min_y_i32) = origin.convert(|v| v.floor()).as_tuple();
@@ -71,7 +81,7 @@ pub fn draw_point_f64_radius_f64(canvas: &mut Canvas<Window>, origin: Vec2<f64>,
     if (max_x_i32, max_y_i32) == origin.as_tuple() {
         draw_point_u32_radius_f64(canvas, origin.convert(|v| v as i32), radius, color);
 
-        return
+        return;
     }
 
     // compute alpha values

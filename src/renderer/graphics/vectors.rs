@@ -20,10 +20,10 @@
 
 pub enum VelocityLengthType {
     Constant(f64),
-    FromValueFactor(f64)
+    FromValueFactor(f64),
 }
 
 pub enum ForceLengthType {
     Constant(f64),
-    FromValueFactor(f64)
+    FromValueFactor(f64),
 }

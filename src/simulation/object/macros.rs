@@ -16,12 +16,7 @@
 
 macro_rules! create_object_value_checked {
     ($mass: expr, $loc: expr, $can_move: expr, $color: expr) => {
-        Object::new_inactive(
-            $mass,
-            $loc,
-            $can_move,
-            $color
-        )
+        Object::new_inactive($mass, $loc, $can_move, $color)
             .map_err(|e| anyhow::anyhow!(e))
             .with_context(|| "Couldn't create object.")?
     };

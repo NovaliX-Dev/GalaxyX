@@ -14,10 +14,10 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-pub mod window;
 pub mod graphics;
+pub mod window;
 
-use sdl2::{VideoSubsystem, EventPump};
+use sdl2::{EventPump, VideoSubsystem};
 
 /// Initialize all needed SDL modules
 pub fn init_sdl_modules() -> Result<(VideoSubsystem, EventPump), String> {

@@ -18,9 +18,9 @@ mod draw;
 pub mod radius;
 pub mod vectors;
 
-use sdl2::video::Window;
-use sdl2::render::Canvas;
 use sdl2::pixels::Color;
+use sdl2::render::Canvas;
+use sdl2::video::Window;
 
 use crate::common::maths;
 use crate::common::vec2::{Vec2F, VecLength};
@@ -61,14 +61,14 @@ impl Graphics {
 
 macro_rules! draw_vector_option {
     (
-        $canvas: ident, 
-        $settings: ident, 
+        $canvas: ident,
+        $settings: ident,
         $attribute: ident,
-        $factor: expr, 
-        $enum: ident, 
-        $object: ident, 
-        $object_attribute: ident, 
-        $object_origin: ident, 
+        $factor: expr,
+        $enum: ident,
+        $object: ident,
+        $object_attribute: ident,
+        $object_origin: ident,
         $color: expr
     ) => {
         if let Some(v) = &$settings.$attribute {
@@ -108,8 +108,28 @@ pub fn draw_object(canvas: &mut Canvas<Window>, object: &Object, settings: &Grap
     draw::draw_point_f64_radius_f64(canvas, object.location, r, object.color);
 
     // draw it's force if requested
-    draw_vector_option!(canvas, settings, force, 10.0e8, ForceLengthType, object, force, p, Color::WHITE);
+    draw_vector_option!(
+        canvas,
+        settings,
+        force,
+        10.0e8,
+        ForceLengthType,
+        object,
+        force,
+        p,
+        Color::WHITE
+    );
 
     // draw it's velocity if requested
-    draw_vector_option!(canvas, settings, velocity, 10.0e5, VelocityLengthType, object, velocity, p, Color::WHITE);
+    draw_vector_option!(
+        canvas,
+        settings,
+        velocity,
+        10.0e5,
+        VelocityLengthType,
+        object,
+        velocity,
+        p,
+        Color::WHITE
+    );
 }

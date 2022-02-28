@@ -14,8 +14,8 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-use crate::common::constants::G;
 use super::object::Object;
+use crate::common::constants::G;
 use crate::common::maths::{self, compute_angle};
 use crate::common::vec2::Vec2F;
 
@@ -52,10 +52,7 @@ pub fn compute_object_global_force_for_each(objects: &mut Vec<Object>) {
         let mut o_vec2 = objects.clone();
         o_vec2.remove(i);
 
-        compute_object_global_force(
-            objects.get_mut(i).unwrap(), 
-            &o_vec2
-        )
+        compute_object_global_force(objects.get_mut(i).unwrap(), &o_vec2)
     }
 }
 

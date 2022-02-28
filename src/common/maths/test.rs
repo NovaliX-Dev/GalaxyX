@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-use std::f64::consts::{PI, FRAC_PI_2};
+use std::f64::consts::{FRAC_PI_2, PI};
 
 use super::{compute_angle, compute_distance};
 use crate::common::vec2::Vec2F;
