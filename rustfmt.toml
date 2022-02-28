@@ -1,0 +1,12 @@
+match_block_trailing_comma = true
+tab_spaces = 5
+use_try_shorthand = true
+
+# Unstables, waiting them to be stabilized
+wrap_comments = true
+trailing_comma = "Never"
+imports_granularity = "Module"
+group_imports = "StdExternalCrate"
+binop_separator = "Front"
+combine_control_expr = false
+imports_layout = "HorizontalVertical"
