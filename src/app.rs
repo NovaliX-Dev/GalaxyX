@@ -23,19 +23,25 @@ use sdl2::pixels::Color;
 
 use crate::renderer::graphics::{self, Graphics};
 
+use crate::renderer::viewport::Viewport;
 use crate::{
     renderer,
     simulation::{object::Object, physics},
 };
 
 /// Create all the threads for the simulation and launch the window
-pub fn run(mut objects: Vec<Object>, delta_t: f64, graphics: Graphics) -> anyhow::Result<()> {
+pub fn run(
+    mut objects: Vec<Object>,
+    delta_t: f64,
+    graphics: Graphics,
+    mut viewport: Viewport,
+) -> anyhow::Result<()> {
     // -------------------------------------------------------------------------
     // Window creation
     // -------------------------------------------------------------------------
 
     // init sdl modules
-    let (video, mut event_pump) = renderer::init_sdl_modules()
+    let (video, mut event_pump, mouse) = renderer::init_sdl_modules()
         .map_err(|e| anyhow::anyhow!(e))
         .with_context(|| "Couldn't initialize SDL modules.")?;
 
@@ -56,6 +62,26 @@ pub fn run(mut objects: Vec<Object>, delta_t: f64, graphics: Graphics) -> anyhow
             match event {
                 // window close, since there is only one
                 Event::Quit { .. } => break 'win_loop,
+
+                // -------------------------------------------------------------
+                // Viewport controls
+                // -------------------------------------------------------------
+                Event::MouseWheel { y, .. } => viewport.zoom(y, canvas.window().size()),
+
+                Event::MouseMotion {
+                    xrel,
+                    yrel,
+                    mousestate,
+                    ..
+                } => {
+                    if mousestate.left() {
+                        mouse.set_relative_mouse_mode(true);
+
+                        viewport.move_(xrel, yrel);
+                    } else {
+                        mouse.set_relative_mouse_mode(false);
+                    }
+                }
 
                 _ => (),
             }
@@ -79,7 +105,7 @@ pub fn run(mut objects: Vec<Object>, delta_t: f64, graphics: Graphics) -> anyhow
         canvas.clear();
 
         for o in objects.iter() {
-            graphics::draw_object(&mut canvas, o, &graphics)
+            graphics::draw_object(&mut canvas, o, &graphics, &viewport)
         }
 
         canvas.present();

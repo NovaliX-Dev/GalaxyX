@@ -15,7 +15,7 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 use std::fmt::Debug;
-use std::ops::{Add, AddAssign, Div, Mul, Sub};
+use std::ops::{Add, AddAssign, Div, Mul, Neg, Sub, SubAssign};
 
 use num_traits::{Float, Num};
 
@@ -130,6 +130,16 @@ where
     }
 }
 
+impl<T> SubAssign for Vec2<T>
+where
+    T: Num + SubAssign,
+{
+    fn sub_assign(&mut self, rhs: Self) {
+        self.x -= rhs.x;
+        self.y -= rhs.y;
+    }
+}
+
 impl<T> Div<T> for Vec2<T>
 where
     T: Num + Copy,
@@ -200,6 +210,20 @@ where
             .field("x", &self.x)
             .field("y", &self.y)
             .finish()
+    }
+}
+
+impl<T> Neg for Vec2<T>
+where
+    T: Num + Neg<Output = T>,
+{
+    type Output = Self;
+
+    fn neg(self) -> Self::Output {
+        Self {
+            x: -self.x,
+            y: -self.y,
+        }
     }
 }
 

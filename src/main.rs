@@ -20,6 +20,7 @@ use common::vec2::Vec2F;
 use renderer::graphics::radius::{MassGraphics, RadiusType};
 use renderer::graphics::vectors::{ForceLengthType, VelocityLengthType};
 use renderer::graphics::Graphics;
+use renderer::viewport::Viewport;
 use sdl2::pixels::Color;
 use simulation::object;
 
@@ -58,6 +59,8 @@ fn main() -> anyhow::Result<()> {
         Some(ForceLengthType::Constant(10.0)),
     );
 
+    let viewport = Viewport::default();
+
     // launch the app
-    app::run(objects, 720000.0, graphics)
+    app::run(objects, 720000.0, graphics, viewport)
 }
