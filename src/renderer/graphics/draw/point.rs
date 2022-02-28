@@ -14,16 +14,14 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-use sdl2::pixels::Color;
-use sdl2::rect::{Point, Rect};
-use sdl2::render::{BlendMode, Canvas};
-use sdl2::video::Window;
+use sdl2::{
+     pixels::Color,
+     rect::Rect,
+     render::{BlendMode, Canvas},
+     video::Window,
+};
 
 use crate::common::vec2::Vec2;
-
-// =============================================================================
-// Point
-// =============================================================================
 
 /// Draw a point in the canvas
 pub fn draw_point_u32(canvas: &mut Canvas<Window>, origin: Vec2<i32>, radius: u32, color: Color) {
@@ -125,24 +123,4 @@ pub fn draw_point_f64_radius_f64(
      draw_point_u32_radius_f64(canvas, min_y_min_x_origin, radius, min_y_min_x_color);
      draw_point_u32_radius_f64(canvas, max_y_max_x_origin, radius, max_y_max_x_color);
      draw_point_u32_radius_f64(canvas, max_y_min_x_origin, radius, max_y_min_x_color);
-}
-
-// =============================================================================
-// Line
-// =============================================================================
-
-/// Draw a vector in the canvas
-pub fn draw_line_u32(canvas: &mut Canvas<Window>, p1: Vec2<i32>, p2: Vec2<i32>, color: Color) {
-     // skip empty lines
-     if p1 == p2 {
-          return;
-     }
-
-     canvas.set_draw_color(color);
-
-     // convert Vec2 to SDL points
-     let point1 = Point::new(p1.x, p1.y);
-     let point2 = Point::new(p2.x, p2.y);
-
-     canvas.draw_line(point1, point2).unwrap();
 }
