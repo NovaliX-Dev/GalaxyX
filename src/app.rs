@@ -63,6 +63,14 @@ pub fn run(
                     // window close, since there is only one
                     Event::Quit { .. } => break 'win_loop,
 
+                    Event::Window { win_event, .. } => match win_event {
+                         sdl2::event::WindowEvent::Resized(w, h) => {
+                              viewport.set_window_size((w.abs() as u32, h.abs() as u32))
+                         },
+
+                         _ => (),
+                    },
+
                     // -------------------------------------------------------------
                     // Viewport controls
                     // -------------------------------------------------------------

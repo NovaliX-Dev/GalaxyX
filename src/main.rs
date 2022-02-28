@@ -59,7 +59,7 @@ fn main() -> anyhow::Result<()> {
           Some(ForceLengthType::Constant(10.0)),
      );
 
-     let viewport = Viewport::default();
+     let viewport = Viewport::new_default((800, 600));
 
      // launch the app
      app::run(objects, 720000.0, graphics, viewport)
