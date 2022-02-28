@@ -22,8 +22,8 @@ ___
   - [x] Object rendering
   - [ ] Vector rendering
 - [ ] Viewport controls
-  - [ ] zoom
-  - [ ] move
+  - [x] zoom
+  - [x] move
   - [ ] object focus
 - [ ] Informations rendering (fps, cps _(computation per second)_)
 - [ ] Engine multi-threading
