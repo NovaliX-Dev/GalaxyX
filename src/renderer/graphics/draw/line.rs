@@ -27,29 +27,13 @@ pub fn draw_line_u32(canvas: &mut Canvas<Window>, p1: Vec2<i32>, p2: Vec2<i32>, 
           return;
      }
 
-     canvas.set_draw_color(color);
+     if canvas.draw_color() != color {
+          canvas.set_draw_color(color);
+     }
 
      // convert Vec2 to SDL points
      let point1 = Point::new(p1.x, p1.y);
      let point2 = Point::new(p2.x, p2.y);
 
      canvas.draw_line(point1, point2).unwrap();
-}
-
-fn plot(canvas: &mut Canvas<Window>, p: Vec2<i32>, color: Color, a: f64) {
-     let point = Point::new(p.x, p.y);
-
-     let c = Color::RGBA(color.r, color.g, color.b, (a * 255.0).round() as u8);
-
-     canvas.set_draw_color(c);
-     canvas.draw_point(point).unwrap();
-}
-
-fn plot_f64(canvas: &mut Canvas<Window>, p: Vec2<f64>, color: Color, a: f64) {
-     plot(canvas, p.convert(|v| v as i32), color, a)
-}
-
-/// Use Wu's algorithm to draw antialiased lines
-pub fn draw_line_f64(canvas: &mut Canvas<Window>, mut p1: Vec2F, mut p2: Vec2F, color: Color) {
-     
 }
