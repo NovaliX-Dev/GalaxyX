@@ -19,11 +19,14 @@ use std::time::Instant;
 use anyhow::Context;
 
 use sdl2::event::Event;
+use sdl2::mouse::MouseButton;
 use sdl2::pixels::Color;
 
+use crate::common::vec2::Vec2;
 use crate::renderer::graphics::{self, Graphics};
 
 use crate::renderer::viewport::Viewport;
+use crate::simulation::thread;
 use crate::{
      renderer,
      simulation::{object::Object, physics},
@@ -33,8 +36,10 @@ use crate::{
 pub fn run(
      mut objects: Vec<Object>,
      delta_t: f64,
+     force_smoothings: f64,
      graphics: Graphics,
      mut viewport: Viewport,
+     window_size: Vec2<u32>,
 ) -> anyhow::Result<()> {
      // -------------------------------------------------------------------------
      // Window creation
@@ -46,9 +51,17 @@ pub fn run(
           .with_context(|| "Couldn't initialize SDL modules.")?;
 
      // create the window
-     let mut canvas = renderer::window::create(video, 800, 600, "GalaxyX", true)
-          .map_err(|e| anyhow::anyhow!(e))
-          .with_context(|| "Couldn't create the window.")?;
+     let mut canvas =
+          renderer::window::create(video, window_size.x, window_size.y, "GalaxyX", true)
+               .map_err(|e| anyhow::anyhow!(e))
+               .with_context(|| "Couldn't create the window.")?;
+
+     // ------------------------------------------------------------------------
+     // Thread launch
+     // ------------------------------------------------------------------------
+
+     let mut objects_to_draw = objects.clone();
+     let receiver = thread::launch_engine_thread(objects, force_smoothings, delta_t);
 
      // -------------------------------------------------------------------------
      // Window loop
@@ -63,18 +76,14 @@ pub fn run(
                     // window close, since there is only one
                     Event::Quit { .. } => break 'win_loop,
 
-                    Event::Window { win_event, .. } => match win_event {
-                         sdl2::event::WindowEvent::Resized(w, h) => {
-                              viewport.set_window_size((w.abs() as u32, h.abs() as u32))
-                         },
-
-                         _ => (),
-                    },
-
                     // -------------------------------------------------------------
                     // Viewport controls
                     // -------------------------------------------------------------
-                    Event::MouseWheel { y, .. } => viewport.zoom(y),
+                    Event::MouseWheel { y, .. } => {
+                         let center = window_size / 2;
+
+                         viewport.zoom(y as f64, center.convert_as_to_type());
+                    },
 
                     Event::MouseMotion {
                          xrel,
@@ -86,7 +95,11 @@ pub fn run(
                               mouse.set_relative_mouse_mode(true);
 
                               viewport.move_(xrel, yrel);
-                         } else {
+                         }
+                    },
+
+                    Event::MouseButtonUp { mouse_btn, .. } => {
+                         if mouse_btn == MouseButton::Left {
                               mouse.set_relative_mouse_mode(false);
                          }
                     },
@@ -102,8 +115,9 @@ pub fn run(
           // Physics computation
           // ---------------------------------------------------------------------
 
-          physics::compute_object_global_force_for_each(&mut objects);
-          physics::compute_object_next_position_for_each(&mut objects, delta_t * time_passed);
+          if let Ok(new_data) = receiver.try_recv() {
+               objects_to_draw = new_data;
+          }
 
           // ---------------------------------------------------------------------
           // Rendering
@@ -112,7 +126,7 @@ pub fn run(
           canvas.set_draw_color(Color::BLACK);
           canvas.clear();
 
-          for o in objects.iter() {
+          for o in objects_to_draw.iter() {
                graphics::draw_object(&mut canvas, o, &graphics, &viewport)
           }
 

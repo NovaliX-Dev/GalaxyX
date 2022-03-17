@@ -14,6 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+#[derive(Clone, Copy)]
 pub enum VelocityDirection {
      Left,
      Right,
@@ -50,5 +51,16 @@ pub fn add_orbital_velocity(o: &mut Object, origins: &Vec<Object>, direction: Ve
           );
 
           o.velocity += v_vec;
+     }
+}
+
+/// Add orbital velocity to many objects using the same origins
+pub fn add_orbital_velocity_for_each(
+     objects: &mut Vec<Object>,
+     origins: &Vec<Object>,
+     direction: VelocityDirection,
+) {
+     for o in objects {
+          add_orbital_velocity(o, origins, direction)
      }
 }

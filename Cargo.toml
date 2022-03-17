@@ -9,6 +9,7 @@ edition = "2021"
 anyhow = "1.0.55"
 paste = "1.0.6"
 num-traits = "0.2.14"
+rand = "0.8.5"
 
 [dependencies.sdl2]
 version = "0.35.2"

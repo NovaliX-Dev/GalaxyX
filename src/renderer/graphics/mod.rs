@@ -85,7 +85,7 @@ macro_rules! draw_vector_option {
                     };
 
                     let f_vector = $object.location + p2;
-                    let f_vector_scaled = f_vector * $viewport.scale + $viewport.scaled_shift;
+                    let f_vector_scaled = f_vector * $viewport.scale + $viewport.shift;
 
                     // draw it's force
                     draw::draw_line_u32(
@@ -106,7 +106,7 @@ pub fn draw_object(
      settings: &Graphics,
      viewport: &Viewport,
 ) {
-     let location = object.location * viewport.scale + viewport.scaled_shift;
+     let location = object.location * viewport.scale + viewport.shift;
      let p = location.convert(|v| v as i32);
 
      // compute the radius

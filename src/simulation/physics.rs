@@ -19,20 +19,24 @@ use crate::common::constants::G;
 use crate::common::maths::{self, compute_angle};
 use crate::common::vec2::Vec2F;
 
-fn compute_force_value(o1: &Object, o2: &Object) -> f64 {
+fn compute_force_value(o1: &Object, o2: &Object, force_smoothings: f64) -> f64 {
      let d = maths::compute_distance(o1.location, o2.location);
      if d == 0.0 {
           0.0
      } else {
-          G * (o1.mass * o2.mass) / d.powi(2)
+          G * (o1.mass * o2.mass) / (d.powi(2) + force_smoothings)
      }
 }
 
 /// Compute the global force the object is affected by
-pub fn compute_object_global_force(object: &mut Object, others: &Vec<Object>) {
+pub fn compute_object_global_force(
+     object: &mut Object,
+     others: &Vec<Object>,
+     force_smoothings: f64,
+) {
      let mut global_f_vec = Vec2F::new_null();
      for o2 in others {
-          let f = compute_force_value(object, o2);
+          let f = compute_force_value(object, o2, force_smoothings);
           let a = compute_angle(object.location, o2.location);
 
           let f_vec = Vec2F::from_angle_value(a, f);
@@ -43,7 +47,7 @@ pub fn compute_object_global_force(object: &mut Object, others: &Vec<Object>) {
 }
 
 /// Compute the global force each object is affected by
-pub fn compute_object_global_force_for_each(objects: &mut Vec<Object>) {
+pub fn compute_object_global_force_for_each(objects: &mut Vec<Object>, force_smoothings: f64) {
      for i in 0..objects.len() {
           if !objects.get(i).unwrap().can_move {
                continue;
@@ -52,7 +56,7 @@ pub fn compute_object_global_force_for_each(objects: &mut Vec<Object>) {
           let mut o_vec2 = objects.clone();
           o_vec2.remove(i);
 
-          compute_object_global_force(objects.get_mut(i).unwrap(), &o_vec2)
+          compute_object_global_force(objects.get_mut(i).unwrap(), &o_vec2, force_smoothings)
      }
 }
 

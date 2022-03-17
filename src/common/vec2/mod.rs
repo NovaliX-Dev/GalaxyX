@@ -15,9 +15,11 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 use std::fmt::Debug;
+use std::iter::Sum;
+use std::marker;
 use std::ops::{Add, AddAssign, Div, Mul, Neg, Sub, SubAssign};
 
-use num_traits::{Float, Num};
+use num_traits::{AsPrimitive, Float, Num};
 
 // =============================================================================
 // Traits
@@ -88,6 +90,26 @@ where
      /// Return a tuple containing both values
      pub fn as_tuple(self) -> (T, T) {
           (self.x, self.y)
+     }
+
+     /// Convert to one type to another
+     pub fn convert_as_to_type<F: 'static>(self) -> Vec2<F>
+     where
+          F: Num + marker::Copy,
+          T: AsPrimitive<F>,
+     {
+          macro_rules! convert_as_to_type {
+               ($out: ident, $type_: ty) => {
+                    let $out = Vec2::<$type_> {
+                         x: self.x.as_(),
+                         y: self.y.as_(),
+                    };
+               };
+          }
+
+          convert_as_to_type!(out, F);
+
+          out
      }
 }
 
@@ -240,6 +262,24 @@ where
                x: self.x.into(),
                y: self.y.into(),
           }
+     }
+}
+
+impl<T> Sum for Vec2<T>
+where
+     T: Num,
+{
+     fn sum<I: Iterator<Item = Self>>(iter: I) -> Self {
+          iter.fold(
+               Self {
+                    x: T::zero(),
+                    y: T::zero(),
+               },
+               |a, b| Self {
+                    x: a.x + b.x,
+                    y: a.y + b.y,
+               },
+          )
      }
 }
 

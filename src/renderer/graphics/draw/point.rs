@@ -35,7 +35,7 @@ pub fn draw_point_u32(canvas: &mut Canvas<Window>, origin: Vec2<i32>, radius: u3
      if canvas.draw_color() != color {
           canvas.set_draw_color(color);
      }
-     
+
      canvas.fill_rect(rect).unwrap();
 }
 
