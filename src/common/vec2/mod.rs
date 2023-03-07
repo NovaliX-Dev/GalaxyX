@@ -80,7 +80,7 @@ where
      }
 
      /// Return a tuple containing both values
-     pub fn as_tuple(self) -> (T, T) {
+     pub fn into_tuple(self) -> (T, T) {
           (self.x, self.y)
      }
 

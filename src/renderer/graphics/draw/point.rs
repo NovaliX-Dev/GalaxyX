@@ -75,8 +75,8 @@ pub fn draw_point_f64_radius_f64(
      color: Color,
 ) {
      // get ceil and floor x and y
-     let (max_x_i32, max_y_i32) = origin.convert(|v| v.ceil()).as_tuple();
-     let (min_x_i32, min_y_i32) = origin.convert(|v| v.floor()).as_tuple();
+     let (max_x_i32, max_y_i32) = origin.convert(|v| v.ceil()).into_tuple();
+     let (min_x_i32, min_y_i32) = origin.convert(|v| v.floor()).into_tuple();
 
      // if the origin is on a pixel directly we have to draw it only one time
      if max_x_i32 == origin.x

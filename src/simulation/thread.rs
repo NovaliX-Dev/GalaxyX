@@ -18,7 +18,7 @@ fn engine_thread(
           physics::compute_object_next_position_for_each(&mut objects, delta_t);
 
           let r = sender.send(objects.clone());
-          if let Err(_) = r {
+          if r.is_err() {
                break;
           }
      }
