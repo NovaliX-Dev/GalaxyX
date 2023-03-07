@@ -1,7 +1,7 @@
 use std::{f64::consts::PI, ops::Range};
 
 use rand::{prelude::ThreadRng, Rng};
-use sdl2::{pixels::Color, render::BlendMode};
+use sdl2::{pixels::Color};
 
 use crate::{common::vec2::Vec2F, object::Object, simulation::object::NegativeOrNullMassError};
 

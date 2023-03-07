@@ -14,10 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-use crate::{
-     common::vec2::{Vec2, Vec2F},
-     object::Object,
-};
+use crate::common::vec2::Vec2F;
 
 const MIN_ZOOM: f64 = 10e-3;
 

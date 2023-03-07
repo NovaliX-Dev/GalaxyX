@@ -14,11 +14,9 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-use std::mem::swap;
-
 use sdl2::{pixels::Color, rect::Point, render::Canvas, video::Window};
 
-use crate::common::vec2::{Vec2, Vec2F};
+use crate::common::vec2::Vec2;
 
 /// Draw a vector in the canvas
 pub fn draw_line_u32(canvas: &mut Canvas<Window>, p1: Vec2<i32>, p2: Vec2<i32>, color: Color) {

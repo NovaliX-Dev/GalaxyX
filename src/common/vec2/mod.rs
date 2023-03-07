@@ -68,14 +68,6 @@ where
           }
      }
 
-     /// Construct a new Vec2F object with ones
-     pub fn new_one() -> Self {
-          Self {
-               x: T::one(),
-               y: T::one(),
-          }
-     }
-
      /// Function to convert from one value type to another manually
      pub fn convert<F>(self, convert_function: fn(T) -> F) -> Vec2<F>
      where

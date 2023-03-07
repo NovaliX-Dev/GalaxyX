@@ -19,7 +19,9 @@
 // =============================================================================
 
 pub enum RadiusType {
+     #[allow(unused)]
      Constant(f64),
+     
      FromMass(MassGraphics),
 }
 

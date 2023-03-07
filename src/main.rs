@@ -21,7 +21,7 @@ use rand::thread_rng;
 use renderer::graphics::radius::{MassGraphics, RadiusType};
 use renderer::graphics::vectors::{ForceLengthType, VelocityLengthType};
 use renderer::graphics::Graphics;
-use renderer::viewport::{self, Viewport};
+use renderer::viewport;
 use sdl2::pixels::Color;
 use simulation::object;
 

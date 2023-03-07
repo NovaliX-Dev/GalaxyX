@@ -14,8 +14,6 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-use std::time::Instant;
-
 use anyhow::Context;
 
 use sdl2::event::Event;
@@ -29,12 +27,12 @@ use crate::renderer::viewport::Viewport;
 use crate::simulation::thread;
 use crate::{
      renderer,
-     simulation::{object::Object, physics},
+     simulation::{object::Object},
 };
 
 /// Create all the threads for the simulation and launch the window
 pub fn run(
-     mut objects: Vec<Object>,
+     objects: Vec<Object>,
      delta_t: f64,
      force_smoothings: f64,
      graphics: Graphics,
@@ -66,8 +64,6 @@ pub fn run(
      // -------------------------------------------------------------------------
      // Window loop
      // -------------------------------------------------------------------------
-
-     let mut time_passed = 0.0;
 
      'win_loop: loop {
           // handle events if any
@@ -108,9 +104,6 @@ pub fn run(
                }
           }
 
-          // get a first time value
-          let time_now = Instant::now();
-
           // ---------------------------------------------------------------------
           // Physics computation
           // ---------------------------------------------------------------------
@@ -133,7 +126,6 @@ pub fn run(
           canvas.present();
 
           // compute the time passed during the physics computation and display
-          time_passed = time_now.elapsed().as_secs_f64();
      }
 
      Ok(())

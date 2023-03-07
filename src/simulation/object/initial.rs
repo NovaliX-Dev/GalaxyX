@@ -17,6 +17,8 @@
 #[derive(Clone, Copy)]
 pub enum VelocityDirection {
      Left,
+
+     #[allow(unused)]
      Right,
 }
 
