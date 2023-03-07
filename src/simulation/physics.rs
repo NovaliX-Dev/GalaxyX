@@ -15,9 +15,11 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 use super::object::Object;
-use crate::common::constants::G;
-use crate::common::maths::{self, compute_angle};
-use crate::common::vec2::Vec2F;
+use crate::common::{
+     constants::G,
+     maths::{self, compute_angle},
+     vec2::Vec2F
+};
 
 fn compute_force_value(o1: &Object, o2: &Object, force_smoothings: f64) -> f64 {
      let d = maths::compute_distance(o1.location, o2.location);
@@ -32,7 +34,7 @@ fn compute_force_value(o1: &Object, o2: &Object, force_smoothings: f64) -> f64 {
 pub fn compute_object_global_force(
      object: &mut Object,
      others: &Vec<Object>,
-     force_smoothings: f64,
+     force_smoothings: f64
 ) {
      let mut global_f_vec = Vec2F::new_null();
      for o2 in others {

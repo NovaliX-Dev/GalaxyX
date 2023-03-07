@@ -18,20 +18,20 @@ mod draw;
 pub mod radius;
 pub mod vectors;
 
-use sdl2::pixels::Color;
-use sdl2::render::Canvas;
-use sdl2::video::Window;
-
-use crate::common::maths;
-use crate::common::vec2::{Vec2F, VecLength};
-use crate::simulation::object::Object;
+use sdl2::{pixels::Color, render::Canvas, video::Window};
 
 use self::{
      radius::RadiusType,
-     vectors::{ForceLengthType, VelocityLengthType},
+     vectors::{ForceLengthType, VelocityLengthType}
 };
-
 use super::viewport::Viewport;
+use crate::{
+     common::{
+          maths,
+          vec2::{Vec2F, VecLength}
+     },
+     simulation::object::Object
+};
 
 // =============================================================================
 // Type
@@ -40,19 +40,19 @@ use super::viewport::Viewport;
 pub struct Graphics {
      radius_type: RadiusType,
      velocity: Option<VelocityLengthType>,
-     force: Option<ForceLengthType>,
+     force: Option<ForceLengthType>
 }
 
 impl Graphics {
      pub fn new(
           radius_type: RadiusType,
           velocity: Option<VelocityLengthType>,
-          force: Option<ForceLengthType>,
+          force: Option<ForceLengthType>
      ) -> Self {
           Self {
                radius_type,
                velocity,
-               force,
+               force
           }
      }
 }
@@ -79,9 +79,9 @@ macro_rules! draw_vector_option {
                     let p2 = match v {
                          $enum::Constant(v) => Vec2F::from_angle_value(
                               maths::compute_angle(Vec2F::new_null(), $object.$object_attribute),
-                              *v,
+                              *v
                          ),
-                         $enum::FromValueFactor(f) => $object.$object_attribute * *f,
+                         $enum::FromValueFactor(f) => $object.$object_attribute * *f
                     };
 
                     let f_vector = $object.location + p2;
@@ -92,7 +92,7 @@ macro_rules! draw_vector_option {
                          $canvas,
                          $object_origin,
                          f_vector_scaled.convert(|v| v as i32),
-                         $color,
+                         $color
                     );
                }
           }
@@ -104,7 +104,7 @@ pub fn draw_object(
      canvas: &mut Canvas<Window>,
      object: &Object,
      settings: &Graphics,
-     viewport: &Viewport,
+     viewport: &Viewport
 ) {
      let location = object.location * viewport.scale + viewport.shift;
      let p = location.convert(|v| v as i32);
@@ -112,7 +112,7 @@ pub fn draw_object(
      // compute the radius
      let r = match &settings.radius_type {
           RadiusType::Constant(v) => *v,
-          RadiusType::FromMass(v) => v.radius_f64_from_mass(object.mass),
+          RadiusType::FromMass(v) => v.radius_f64_from_mass(object.mass)
      };
      let radius = viewport.scale * r;
 

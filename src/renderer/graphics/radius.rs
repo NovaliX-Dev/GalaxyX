@@ -21,8 +21,8 @@
 pub enum RadiusType {
      #[allow(unused)]
      Constant(f64),
-     
-     FromMass(MassGraphics),
+
+     FromMass(MassGraphics)
 }
 
 // =============================================================================
@@ -32,14 +32,14 @@ pub enum RadiusType {
 /// allow to compute the radius of an object from it's mass
 pub struct MassGraphics {
      min_size: f64,
-     mass_factor: f64,
+     mass_factor: f64
 }
 
 impl MassGraphics {
      pub fn new(min_size: f64, mass_factor: f64) -> Self {
           Self {
                min_size,
-               mass_factor,
+               mass_factor
           }
      }
 

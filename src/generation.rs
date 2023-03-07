@@ -1,7 +1,7 @@
 use std::{f64::consts::PI, ops::Range};
 
 use rand::{prelude::ThreadRng, Rng};
-use sdl2::{pixels::Color};
+use sdl2::pixels::Color;
 
 use crate::{common::vec2::Vec2F, object::Object, simulation::object::NegativeOrNullMassError};
 
@@ -10,7 +10,7 @@ fn generate_random_points_in_circle(
      rng: &mut ThreadRng,
      origin: Vec2F,
      r: f64,
-     number: usize,
+     number: usize
 ) -> Vec<Vec2F> {
      let mut points = Vec::<Vec2F>::with_capacity(number);
 
@@ -32,7 +32,7 @@ fn generate_random_points_in_circle(
 fn generate_random_values_in_range(
      rng: &mut ThreadRng,
      range: Range<f64>,
-     number: usize,
+     number: usize
 ) -> Vec<f64> {
      let mut masses = Vec::<f64>::with_capacity(number);
 
@@ -53,7 +53,7 @@ pub fn generate_random_objects_in_circle(
      r: f64,
      mass_range: Range<f64>,
      number: usize,
-     color: Color,
+     color: Color
 ) -> Result<Vec<Object>, NegativeOrNullMassError> {
      let points = generate_random_points_in_circle(rng, origin, r, number);
 

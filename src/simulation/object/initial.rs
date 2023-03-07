@@ -19,7 +19,7 @@ pub enum VelocityDirection {
      Left,
 
      #[allow(unused)]
-     Right,
+     Right
 }
 
 // =============================================================================
@@ -28,9 +28,8 @@ pub enum VelocityDirection {
 
 use std::f64::consts::FRAC_PI_2;
 
-use crate::common::{constants::G, maths, vec2::Vec2F};
-
 use super::Object;
+use crate::common::{constants::G, maths, vec2::Vec2F};
 
 /// Make the object o turn around many others objects (called origins)
 pub fn add_orbital_velocity(o: &mut Object, origins: &Vec<Object>, direction: VelocityDirection) {
@@ -47,9 +46,9 @@ pub fn add_orbital_velocity(o: &mut Object, origins: &Vec<Object>, direction: Ve
           let v_vec = Vec2F::from_angle_value(
                match direction {
                     VelocityDirection::Left => a + FRAC_PI_2,
-                    VelocityDirection::Right => a - FRAC_PI_2,
+                    VelocityDirection::Right => a - FRAC_PI_2
                },
-               v,
+               v
           );
 
           o.velocity += v_vec;
@@ -60,7 +59,7 @@ pub fn add_orbital_velocity(o: &mut Object, origins: &Vec<Object>, direction: Ve
 pub fn add_orbital_velocity_for_each(
      objects: &mut Vec<Object>,
      origins: &Vec<Object>,
-     direction: VelocityDirection,
+     direction: VelocityDirection
 ) {
      for o in objects {
           add_orbital_velocity(o, origins, direction)

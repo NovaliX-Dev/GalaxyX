@@ -1,6 +1,6 @@
 use std::{
      sync::mpsc::{self, Receiver, Sender},
-     thread,
+     thread
 };
 
 use super::physics;
@@ -11,7 +11,7 @@ fn engine_thread(
      mut objects: Vec<Object>,
      sender: Sender<Vec<Object>>,
      force_smoothings: f64,
-     delta_t: f64,
+     delta_t: f64
 ) {
      loop {
           physics::compute_object_global_force_for_each(&mut objects, force_smoothings);
@@ -28,7 +28,7 @@ fn engine_thread(
 pub fn launch_engine_thread(
      objects: Vec<Object>,
      force_smoothings: f64,
-     delta_t: f64,
+     delta_t: f64
 ) -> Receiver<Vec<Object>> {
      let (tx, rx) = mpsc::channel();
 

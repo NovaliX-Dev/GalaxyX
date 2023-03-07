@@ -15,19 +15,16 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 use anyhow::Context;
+use sdl2::{event::Event, mouse::MouseButton, pixels::Color};
 
-use sdl2::event::Event;
-use sdl2::mouse::MouseButton;
-use sdl2::pixels::Color;
-
-use crate::common::vec2::Vec2;
-use crate::renderer::graphics::{self, Graphics};
-
-use crate::renderer::viewport::Viewport;
-use crate::simulation::thread;
 use crate::{
+     common::vec2::Vec2,
      renderer,
-     simulation::{object::Object},
+     renderer::{
+          graphics::{self, Graphics},
+          viewport::Viewport
+     },
+     simulation::{object::Object, thread}
 };
 
 /// Create all the threads for the simulation and launch the window
@@ -37,7 +34,7 @@ pub fn run(
      force_smoothings: f64,
      graphics: Graphics,
      mut viewport: Viewport,
-     window_size: Vec2<u32>,
+     window_size: Vec2<u32>
 ) -> anyhow::Result<()> {
      // -------------------------------------------------------------------------
      // Window creation
@@ -100,7 +97,7 @@ pub fn run(
                          }
                     },
 
-                    _ => (),
+                    _ => ()
                }
           }
 

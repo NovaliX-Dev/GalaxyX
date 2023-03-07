@@ -22,7 +22,7 @@ pub struct Viewport {
      original_scale: f64,
      pub scale: f64,
      pub shift: Vec2F,
-     absolute_shift: Vec2F,
+     absolute_shift: Vec2F
 }
 
 impl Viewport {
@@ -31,7 +31,7 @@ impl Viewport {
                scale,
                shift,
                original_scale: scale,
-               absolute_shift: shift,
+               absolute_shift: shift
           }
      }
 

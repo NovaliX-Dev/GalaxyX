@@ -18,7 +18,7 @@ use sdl2::{
      pixels::Color,
      rect::Rect,
      render::{BlendMode, Canvas},
-     video::Window,
+     video::Window
 };
 
 use crate::common::vec2::Vec2;
@@ -29,7 +29,7 @@ pub fn draw_point_u32(canvas: &mut Canvas<Window>, origin: Vec2<i32>, radius: u3
           origin.x - radius as i32,
           origin.y - radius as i32,
           radius * 2,
-          radius * 2,
+          radius * 2
      );
 
      if canvas.draw_color() != color {
@@ -44,7 +44,7 @@ pub fn draw_point_u32_radius_f64(
      canvas: &mut Canvas<Window>,
      origin: Vec2<i32>,
      radius: f64,
-     color: Color,
+     color: Color
 ) {
      let r_min = radius.ceil();
      let r_max = radius.floor();
@@ -72,7 +72,7 @@ pub fn draw_point_f64_radius_f64(
      canvas: &mut Canvas<Window>,
      origin: Vec2<f64>,
      radius: f64,
-     color: Color,
+     color: Color
 ) {
      // get ceil and floor x and y
      let (max_x_i32, max_y_i32) = origin.convert(|v| v.ceil()).into_tuple();

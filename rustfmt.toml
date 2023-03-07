@@ -5,7 +5,7 @@ use_try_shorthand = true
 # Unstables, waiting them to be stabilized
 wrap_comments = true
 trailing_comma = "Never"
-imports_granularity = "Module"
+imports_granularity = "Crate"
 group_imports = "StdExternalCrate"
 binop_separator = "Front"
 combine_control_expr = false

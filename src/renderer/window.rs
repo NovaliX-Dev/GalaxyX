@@ -14,9 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-use sdl2::render::Canvas;
-use sdl2::video::Window;
-use sdl2::VideoSubsystem;
+use sdl2::{render::Canvas, video::Window, VideoSubsystem};
 
 /// Create a window with it's canvas
 pub fn create(
@@ -24,7 +22,7 @@ pub fn create(
      width: u32,
      height: u32,
      title: &str,
-     resizable: bool,
+     resizable: bool
 ) -> Result<Canvas<Window>, String> {
      // create and configure the window builder
      let mut window_builder = video.window(title, width, height);

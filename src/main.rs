@@ -15,18 +15,20 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 use anyhow::Context;
-
 use common::vec2::{Vec2, Vec2F};
 use rand::thread_rng;
-use renderer::graphics::radius::{MassGraphics, RadiusType};
-use renderer::graphics::vectors::{ForceLengthType, VelocityLengthType};
-use renderer::graphics::Graphics;
-use renderer::viewport;
+use renderer::{
+     graphics::{
+          radius::{MassGraphics, RadiusType},
+          vectors::{ForceLengthType, VelocityLengthType},
+          Graphics
+     },
+     viewport
+};
 use sdl2::pixels::Color;
 use simulation::object;
 
-use crate::simulation::object::macros::create_object_value_checked;
-use crate::simulation::object::Object;
+use crate::simulation::object::{macros::create_object_value_checked, Object};
 
 mod app;
 mod common;
@@ -43,21 +45,22 @@ fn main() -> anyhow::Result<()> {
 
      let bh1 = create_object_value_checked!(1000.0, Vec2F::new(0.0, 0.0), false, Color::RED);
 
-     // let mut s1 = create_object_value_checked!(50.0, Vec2F::new(400.0, 200.0), true, Color::CYAN);
+     // let mut s1 = create_object_value_checked!(50.0, Vec2F::new(400.0, 200.0),
+     // true, Color::CYAN);
      let mut objects = generation::generate_random_objects_in_circle(
           &mut rng,
           bh1.location,
           1000.0,
           10.0..100.0,
           500,
-          Color::CYAN,
+          Color::CYAN
      )
      .map_err(|e| anyhow::anyhow!(e))?;
 
      object::add_orbital_velocity_for_each(
           &mut objects,
           &vec![bh1],
-          object::VelocityDirection::Left,
+          object::VelocityDirection::Left
      );
 
      objects.push(bh1);
@@ -72,7 +75,7 @@ fn main() -> anyhow::Result<()> {
      let graphics = Graphics::new(
           radius_type,
           Some(VelocityLengthType::Constant(20.0)),
-          Some(ForceLengthType::Constant(10.0)),
+          Some(ForceLengthType::Constant(10.0))
      );
 
      let window_size = Vec2::new(1024, 768);

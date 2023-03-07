@@ -16,10 +16,9 @@
 
 mod initial;
 pub(crate) mod macros;
-pub use initial::*;
-
 use std::fmt::{Debug, Display};
 
+pub use initial::*;
 use sdl2::pixels::Color;
 
 use crate::common::vec2::Vec2F;
@@ -29,7 +28,7 @@ use crate::common::vec2::Vec2F;
 // =============================================================================
 
 pub struct NegativeOrNullMassError {
-     mass: f64,
+     mass: f64
 }
 
 impl Debug for NegativeOrNullMassError {
@@ -46,7 +45,7 @@ impl Display for NegativeOrNullMassError {
                f.write_str("The mass of the object if null.")
           } else {
                f.write_str(
-                    format!("The mass of the object is negative ({} < 0)", self.mass).as_str(),
+                    format!("The mass of the object is negative ({} < 0)", self.mass).as_str()
                )
           }
      }
@@ -64,7 +63,7 @@ pub struct Object {
      pub force: Vec2F,
      pub velocity: Vec2F,
      pub can_move: bool,
-     pub color: Color,
+     pub color: Color
 }
 
 impl Object {
@@ -76,7 +75,7 @@ impl Object {
           force: Vec2F,
           velocity: Vec2F,
           can_move: bool,
-          color: Color,
+          color: Color
      ) -> Result<Self, NegativeOrNullMassError> {
           if mass <= 0.0 {
                Err(NegativeOrNullMassError { mass })
@@ -87,7 +86,7 @@ impl Object {
                     force,
                     velocity,
                     can_move,
-                    color,
+                    color
                })
           }
      }
@@ -98,7 +97,7 @@ impl Object {
           mass: f64,
           location: Vec2F,
           can_move: bool,
-          color: Color,
+          color: Color
      ) -> Result<Self, NegativeOrNullMassError> {
           Self::new(
                mass,
@@ -106,7 +105,7 @@ impl Object {
                Vec2F::new_null(),
                Vec2F::new_null(),
                can_move,
-               color,
+               color
           )
      }
 }
