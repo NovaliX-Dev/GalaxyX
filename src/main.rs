@@ -82,5 +82,5 @@ fn main() -> anyhow::Result<()> {
      let viewport = viewport::Viewport::new(1.0, Vec2F::new_null());
 
      // launch the app
-     app::run(objects, 3600.0, 50.0, graphics, viewport, window_size)
+     app::run(objects, 36000.0, 50.0, 5, graphics, viewport, window_size)
 }

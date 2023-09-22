@@ -32,6 +32,7 @@ pub fn run(
      objects: Vec<Object>,
      delta_t: f64,
      force_smoothings: f64,
+     substep: u32,
      graphics: Graphics,
      mut viewport: Viewport,
      window_size: Vec2<u32>
@@ -56,7 +57,7 @@ pub fn run(
      // ------------------------------------------------------------------------
 
      let mut objects_to_draw = objects.clone();
-     let receiver = thread::launch_engine_thread(objects, force_smoothings, delta_t);
+     let receiver = thread::launch_engine_thread(objects, force_smoothings, delta_t, substep);
 
      // -------------------------------------------------------------------------
      // Window loop
