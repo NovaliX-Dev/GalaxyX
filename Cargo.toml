@@ -12,6 +12,6 @@ num-traits = "0.2.14"
 rand = "0.8.5"
 
 [dependencies.sdl2]
-version = "0.35.2"
+git = "https://github.com/Rust-SDL2/rust-sdl2.git"
 features = ["bundled"]
 
